@@ -1,5 +1,6 @@
 import json
-
+import datetime
+from operator import itemgetter
 
 def main():
 
@@ -10,8 +11,11 @@ def main():
     "4. Delete birthday\n" \
     "5. Quit\n" \
         "Answer: ")
+    
+    if int(menu)==1:
+        showNearest()
 
-    if int(menu)==2:
+    elif int(menu)==2:
         showBirthday()
         main()
 
@@ -23,6 +27,7 @@ def main():
             choice=input("Add another?: ").lower()
         main()
         
+        
     elif int(menu)==4:
         removeBirthday()
         choice=input("Remove another?: ").lower()
@@ -30,6 +35,7 @@ def main():
             removeBirthday()
             choice=input("Remove another?: ").lower()
         main()
+        
 
     elif int(menu)==5:
         print("Program terminated")
@@ -37,9 +43,32 @@ def main():
     elif menu.isalpha():
         print("Please type a number!")
         main()
+        
 
-    else:
-        main()
+
+
+def showNearest():
+    
+    result=[]
+    with open("Birthdays.json","r") as file:
+        database=json.load(file)
+    
+
+    #sortedList = sorted(database["birthdays"], key = lambda x: (x["month"], x["day"],x["name"]))
+
+
+    for b in database["birthdays"]:
+        diff=datetime.datetime.today()-datetime.datetime(2026, int(b["month"]), int(b["day"]))
+        temp={}
+        temp[b["name"]]=diff
+        result.append(temp)
+
+
+    print(result)
+    sortedList = sorted(result,key=itemgetter('name'))
+
+    #sortedList=sorted(result,key=lambda x: x[0])
+    #print(sortedList)
 
 
 def addBirthday():

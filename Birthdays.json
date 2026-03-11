@@ -1,3 +1,19 @@
 {
-    "birthdays": []
+    "birthdays": [
+        {
+            "name": "Shannon",
+            "month": 4,
+            "day": 3
+        },
+        {
+            "name": "Chris",
+            "month": 4,
+            "day": 2
+        },
+        {
+            "name": "Daniel",
+            "month": 2,
+            "day": 11
+        }
+    ]
 }
