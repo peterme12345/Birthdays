@@ -54,21 +54,21 @@ def showNearest():
         database=json.load(file)
     
 
-    #sortedList = sorted(database["birthdays"], key = lambda x: (x["month"], x["day"],x["name"]))
-
-
     for b in database["birthdays"]:
-        diff=datetime.datetime.today()-datetime.datetime(2026, int(b["month"]), int(b["day"]))
+        if datetime.datetime.today()<=datetime.datetime(2026, int(b["month"]), int(b["day"])):
+            diff=datetime.datetime(2026, int(b["month"]), int(b["day"]))-datetime.datetime.today()
+        else:
+            diff=datetime.datetime.today()-datetime.datetime(2026, int(b["month"]), int(b["day"]))
         temp={}
-        temp[b["name"]]=diff
+        temp["name"]=b["name"]
+        temp["time"]=diff
         result.append(temp)
 
+    #print(database)
+    sortedList = sorted(result, key=lambda x: x["time"])
+    print("The next birthday is",sortedList[0]["name"],"on ",database["birthdays"])
 
-    print(result)
-    sortedList = sorted(result,key=itemgetter('name'))
 
-    #sortedList=sorted(result,key=lambda x: x[0])
-    #print(sortedList)
 
 
 def addBirthday():
