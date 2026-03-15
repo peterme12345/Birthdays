@@ -1,6 +1,5 @@
 import json
 import datetime
-from operator import itemgetter
 
 def main():
 
@@ -14,6 +13,7 @@ def main():
     
     if int(menu)==1:
         showNearest()
+        main()
 
     elif int(menu)==2:
         showBirthday()
@@ -46,7 +46,6 @@ def main():
         
 
 
-
 def showNearest():
     
     result=[]
@@ -64,9 +63,10 @@ def showNearest():
         temp["time"]=diff
         result.append(temp)
 
-    #print(database)
     sortedList = sorted(result, key=lambda x: x["time"])
-    print("The next birthday is",sortedList[0]["name"],"on ",database["birthdays"])
+    print()
+    print("The next birthday is",sortedList[0]["name"],"in",sortedList[0]["time"])
+    print()
 
 
 
@@ -113,6 +113,9 @@ def showBirthday():
         database=json.load(file)
 
     print(json.dumps(database, indent=4))
+    print()
+    print("There are",len(database["birthdays"]),"records")
+    print()
 
 
 main()
