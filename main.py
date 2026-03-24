@@ -56,16 +56,18 @@ def showNearest():
     for b in database["birthdays"]:
         if datetime.datetime.today()<=datetime.datetime(2026, int(b["month"]), int(b["day"])):
             diff=datetime.datetime(2026, int(b["month"]), int(b["day"]))-datetime.datetime.today()
-        else:
-            diff=datetime.datetime.today()-datetime.datetime(2026, int(b["month"]), int(b["day"]))
-        temp={}
-        temp["name"]=b["name"]
-        temp["time"]=diff
-        result.append(temp)
+            temp={}
+            temp["name"]=b["name"]
+            temp["time"]=diff
+            result.append(temp)
 
-    sortedList = sorted(result, key=lambda x: x["time"])
+    sortedList = sorted(result, key=lambda x: x["time"],reverse=False)
     print()
-    print("The next birthday is",sortedList[0]["name"],"in",sortedList[0]["time"])
+    print("The next birthdays are:")
+    print()
+    for i in range(5):
+        print(sortedList[i]["name"],"in",sortedList[i]["time"])
+    
     print()
 
 
