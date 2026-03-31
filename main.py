@@ -8,7 +8,8 @@ def main():
     "2. Display\n"
     "3. Enter birthday\n" \
     "4. Delete birthday\n" \
-    "5. Quit\n" \
+    "5. Find person\n" \
+    "6. Quit\n" \
         "Answer: ")
     
     if int(menu)==1:
@@ -35,9 +36,13 @@ def main():
             removeBirthday()
             choice=input("Remove another?: ").lower()
         main()
-        
-
+    
     elif int(menu)==5:
+        user=input("Checking for who?: ")
+        findPerson(user)
+        main()
+
+    elif int(menu)==6:
         print("Program terminated")
 
     elif menu.isalpha():
@@ -65,7 +70,7 @@ def showNearest():
     print()
     print("The next birthdays are:")
     print()
-    for i in range(5):
+    for i in range(10):
         print(sortedList[i]["name"],"in",sortedList[i]["time"])
     
     print()
@@ -114,10 +119,28 @@ def showBirthday():
     with open("Birthdays.json","r") as file:
         database=json.load(file)
 
-    print(json.dumps(database, indent=4))
+    sortedList = sorted(database["birthdays"], key=lambda x: x["name"])
+    
+    for p in range(len(database["birthdays"])):
+        print(sortedList[p]["name"],end=" ")
+
     print()
     print("There are",len(database["birthdays"]),"records")
     print()
+
+
+def findPerson(user):
+    with open("Birthdays.json","r") as file:
+        database=json.load(file)
+    
+    target=user.lower()
+
+    for x in range(len(database["birthdays"])):
+        if database["birthdays"][x]["name"].lower()==target:
+            print()
+            print("Yes they are added")
+            print()
+
 
 
 main()
