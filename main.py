@@ -39,7 +39,10 @@ def main():
     
     elif int(menu)==5:
         user=input("Checking for who?: ")
-        findPerson(user)
+        if not findPerson(user):
+            print()
+            print("Not added yet")
+            print()
         main()
 
     elif int(menu)==6:
@@ -134,13 +137,15 @@ def findPerson(user):
         database=json.load(file)
     
     target=user.lower()
+   
 
     for x in range(len(database["birthdays"])):
         if database["birthdays"][x]["name"].lower()==target:
             print()
             print("Yes they are added")
+            print(database["birthdays"][x])
             print()
-
-
+            return True
+        
 
 main()
